@@ -73,7 +73,7 @@ particlesJS('particles-js', {
 //   // Optionally send this to Firebase or your backend here
 //   this.reset();
 // });
-document.getElementById('subscribe-form').addEventListener('submit', async function(e) {
+document.getElementById('subscribe-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const email = e.target.email.value.trim();
@@ -86,22 +86,22 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
   statusMsg.style.color = "#a2ff00";
   submitBtn.disabled = true;
 
-  // Step 1: Check if the email already exists
-const checkURL = `http://localhost:3000/check?email=${encodeURIComponent(email)}`;
+  // ✅ Use your Render URL instead of localhost
+  const baseURL = "https://forks-ai.onrender.com";
 
   try {
-    const checkRes = await fetch(checkURL);
+    // Step 1: Check if email already exists
+    const checkRes = await fetch(`${baseURL}/check?email=${encodeURIComponent(email)}`);
     const checkData = await checkRes.json();
 
     if (checkData.length > 0) {
-      // Email already exists
       statusMsg.textContent = "You've already subscribed! We’ll notify you once it’s launched.";
-      statusMsg.style.color = "#a2ff00"; 
+      statusMsg.style.color = "#a2ff00";
     } else {
-      // Step 2: Email is new → save it
-      const data = { data: [{ email }] };
+      // Step 2: Save new email
+      const data = { email };
 
-        const saveRes = await fetch("http://localhost:3000/subscribe", {
+      const saveRes = await fetch(`${baseURL}/subscribe`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -112,14 +112,14 @@ const checkURL = `http://localhost:3000/check?email=${encodeURIComponent(email)}
         statusMsg.style.color = "#a2ff00";
         e.target.reset();
       } else {
-        throw new Error("oops! An error occured.....");
+        throw new Error("oops! An error occurred.");
       }
     }
   } catch (err) {
+    console.error(err);
     statusMsg.textContent = "Something went wrong.......";
-    statusMsg.style.color = "#ff5c5c"; // red
+    statusMsg.style.color = "#ff5c5c";
   } finally {
     submitBtn.disabled = false;
   }
 });
-

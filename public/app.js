@@ -84,6 +84,7 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
 
   statusMsg.textContent = "Running background checks......";
   statusMsg.style.color = "#a2ff00";
+  statusMsg.classList.add("custom-font");
   submitBtn.disabled = true;
 
   // ✅ Use your Render URL instead of localhost
@@ -96,7 +97,10 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
 
     if (checkData.length > 0) {
       statusMsg.textContent = "You've already subscribed! We’ll notify you once it’s launched.";
+      statusMsg.classList.add("custom-font");
       statusMsg.style.color = "#a2ff00";
+      statusMsg.classList.add("custom-font");
+              e.target.reset();
     } else {
       // Step 2: Save new email
       const data = { data: [{ email }] };
@@ -109,8 +113,8 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
 
       if (saveRes.ok) {
         statusMsg.textContent = "Thanks for subscribing! We’ll notify you once it’s launched.";
+        statusMsg.classList.add("custom-font");
         statusMsg.style.color = "#a2ff00";
-        e.target.reset();
       } else {
         throw new Error("oops! An error occurred.");
       }

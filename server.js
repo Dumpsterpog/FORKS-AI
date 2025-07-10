@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const path = require('path');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 // Serve static files from the "public" folder (you can rename if needed)
 app.use(express.static(path.join(__dirname, 'public')));

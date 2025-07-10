@@ -99,13 +99,13 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
       statusMsg.style.color = "#a2ff00";
     } else {
       // Step 2: Save new email
-      const data = { email };
+      const data = { data: [{ email }] };
 
-      const saveRes = await fetch(`${baseURL}/subscribe`, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+        const saveRes = await fetch(`${baseURL}/subscribe`, {
+         method: "POST",
+         headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify(data)
+         });
 
       if (saveRes.ok) {
         statusMsg.textContent = "Thanks for subscribing! We’ll notify you once it’s launched.";

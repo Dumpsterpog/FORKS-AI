@@ -1,0 +1,176 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000; 
+  z-index: 1;
+}
+
+.centered-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: rgb(102, 255, 0);
+  font-family: 'Teknaf', 'Orbitron', sans-serif;
+  z-index: 2;
+  text-align: center;
+}
+
+.typewriter-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white;
+  animation: typing 8s steps(20, end) 1s infinite,
+             blink 0.2s step-end infinite;
+}
+@keyframes typing {
+  0% { width: 0; }
+  50% { width: 20ch; }  /* Fully typed */
+  75% { width: 20ch; }  /* Hold full text */
+  100% { width: 0; }     /* Erase to start again */
+}
+
+@keyframes blink {
+  50% { border-color:  rgb(102, 255, 0); }
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: transparent; /* changed from #000000 */
+  color: #a2ff00;
+  font-size: 14px;
+  z-index: 3;
+  pointer-events: none; /* optional: prevents mouse events */
+}
+#login-btn {
+  margin-top: 28px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-family: 'Teknaf', 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #00f260, #0575e6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+  transition: all 0.3s ease;
+  z-index: 3;
+  
+  /* Make sure shadow is fully visible */
+  position: relative;
+  overflow: visible;
+    animation: pulse-glow 2s infinite ease-in-out;
+
+}
+
+#login-btn:hover {
+  background: linear-gradient(90deg, #0575e6, #00f260);
+  transform: scale(1.05);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+}
+.button-container {
+  position: absolute;
+  top: calc(50% + 60px); /* spacing below the text */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  overflow: visible;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 5.5s; /* matches end of typing effect */
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(0, 255, 255, 0.6),
+      0 0 20px rgba(0, 255, 255, 0.4),
+      inset 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(0, 255, 255, 0.9),
+      0 0 30px rgba(0, 255, 255, 0.6),
+      inset 0 0 12px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.subscribe-container {
+  position: absolute;
+  top: calc(50% + 80px); /* move it up from 130px to 80px */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+  animation: fadeIn 1s ease forwards;
+  opacity: 1;              /* ✅ always visible */
+  animation-delay: 0s;     /* ✅ show immediately */
+}
+
+
+.subscribe-title {
+  color: #a2ff00;
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+#subscribe-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#email-input {
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #a2ff00;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 8px rgba(102, 255, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+#email-input:focus {
+  box-shadow: 0 0 12px rgba(102, 255, 0, 0.9);
+}
+
+#subscribe-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #0575e6, #00f260);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+#subscribe-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 14px rgba(0, 255, 255, 0.7);
+}

@@ -30,6 +30,17 @@ app.post('/subscribe', async (req, res) => {
   }
 
   try {
+    // Step 1: Verify email using MailboxLayer API
+    const verifyRes = await fetch(`http://apilayer.net/api/check?access_key=${process.env.MAILBOXLAYER_KEY}&email=${encodeURIComponent(email)}&smtp=1&format=1`);
+    const verifyData = await verifyRes.json();
+
+    console.log("Verification Result:", verifyData);
+
+    if (!verifyData.format_valid || !verifyData.smtp_check) {
+      return res.status(400).json({ error: "Invalid or unreachable email address." });
+    }
+
+    // Step 2: Store the valid email
     const response = await fetch(SHEETDB_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,6 +55,7 @@ app.post('/subscribe', async (req, res) => {
     res.status(500).json({ error: "Something went wrong on server." });
   }
 });
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

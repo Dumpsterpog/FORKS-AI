@@ -112,7 +112,7 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
          });
 
       if (saveRes.ok) {
-        statusMsg.textContent = "Thanks for subscribing! We’ll notify you once it’s launched.";
+        statusMsg.textContent = "Thanks for subscribing! Check your Inbox & Spam folder.";
         statusMsg.classList.add("custom-font");
         statusMsg.style.color = "#a2ff00";
       } else {

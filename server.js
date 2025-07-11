@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const SHEETDB_URL = `https://sheetdb.io/api/v1/${process.env.SHEETDB_KEY}`;
 const MAILBOXLAYER_API_KEY = process.env.MAILBOXLAYER_KEY;
+const email = req.body?.data?.[0]?.email?.trim().toLowerCase();
 
 // ✅ Route: Check for duplicate email
 app.get('/check', async (req, res) => {
@@ -45,14 +46,14 @@ app.post('/subscribe', async (req, res) => {
 
   try {
     // 🔒 Step 1: Validate email with MailboxLayer API
-    const verifyRes = await fetch(`http://apilayer.net/api/check?access_key=${MAILBOXLAYER_API_KEY}&email=${encodeURIComponent(email)}&smtp=1&format=1`);
+    const verifyRes = await fetch(`http://apilayer.net/api/check?access_key=${MAILBOXLAYER_API_KEY}&email=${encodeURIComponent(email)}&smtp=0&format=1`);
     const verifyData = await verifyRes.json();
 
     console.log("Verification Result:", verifyData);
 
-    if (!verifyData?.format_valid || !verifyData?.smtp_check) {
-      return res.status(400).json({ error: "Invalid or unreachable email address." });
-    }
+   if (!verifyData?.format_valid) {
+  return res.status(400).json({ error: "Invalid email format." });
+}
 
     // ✅ Step 2: Save valid email to SheetDB
     const response = await fetch(SHEETDB_URL, {

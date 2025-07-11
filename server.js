@@ -15,11 +15,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const SHEETDB_URL = `https://sheetdb.io/api/v1/${process.env.SHEETDB_KEY}`;
 const MAILBOXLAYER_API_KEY = process.env.MAILBOXLAYER_KEY;
-const email = req.body?.data?.[0]?.email?.trim().toLowerCase();
 
 // ✅ Route: Check for duplicate email
 app.get('/check', async (req, res) => {
-  const email = req.query.email;
+  const email = req.query.email?.trim().toLowerCase();
 
   if (!email) {
     return res.status(400).json({ error: "Email is required for checking." });
@@ -37,7 +36,7 @@ app.get('/check', async (req, res) => {
 
 // ✅ Route: Save new email after verifying
 app.post('/subscribe', async (req, res) => {
-  const email = req.body?.data?.[0]?.email;
+  const email = req.body?.data?.[0]?.email?.trim().toLowerCase();
   console.log("Subscribing:", email);
 
   if (!email) {
@@ -51,9 +50,9 @@ app.post('/subscribe', async (req, res) => {
 
     console.log("Verification Result:", verifyData);
 
-   if (!verifyData?.format_valid) {
-  return res.status(400).json({ error: "Invalid email format." });
-}
+    if (!verifyData?.format_valid) {
+      return res.status(400).json({ error: "Invalid email format." });
+    }
 
     // ✅ Step 2: Save valid email to SheetDB
     const response = await fetch(SHEETDB_URL, {
